@@ -44,12 +44,15 @@ densitybeta1 <- function(X1, X2, sigma, p, h = 0.01, max = 2)
   X2carre <- c(X2%*%X2)
   X12 <- c(X1%*%X2)
   Delta <- X1carre*X2carre - X12^2
+  Delta2 <- X1carre*X2carre + X12^2
   x <- seq(from = 0, to = max, by = h)
   y <- rep(0, length(x))
   P0 <- p[2] + p[3]
   P1 <- p[1]
   P2 <- p[4]
-  y <- 2*P1*dnorm(x = x, mean = 0, sd = sigma*sqrt(X2carre/Delta)) + 2*P2*dnorm(x = x, mean = 0, sd = sigma/sqrt(X1carre))
+  S1 <- sqrt(X2carre/Delta)
+  S2 <- 1/sqrt(X1carre)
+  y <- 2*P1*dnorm(x = x, mean = 0, sd = sigma*S1) + 2*P2*dnorm(x = x, mean = 0, sd = sigma*S2)
 
   return(list(x = x,y = y, d0 = P0))
 }
@@ -66,6 +69,8 @@ densitybeta1 <- function(X1, X2, sigma, p, h = 0.01, max = 2)
 beta1estimator0 <- function(X1, X2, sigma, n, nbSimu)
 {
   beta1 <- rep(0, nbSimu)
+  A <- NULL
+  B <- NULL
   X1carre <- c(X1%*%X1)
   X2carre <- c(X2%*%X2)
   X12 <- c(X1%*%X2)
@@ -79,10 +84,10 @@ beta1estimator0 <- function(X1, X2, sigma, n, nbSimu)
     B1 <- c(X1%*%epsilon)
     B2 <- c(X2%*%epsilon)
 
-    if(A1 >= 0 && A2 >= 0){beta1[i] <- A1/Delta}
+    if(A1 >= 0 && A2 >= 0){beta1[i] <- A1/Delta; A <- c(A, A1/Delta)}
     if(B1 <= 0 && B2 <= 0){beta1[i] <- 0}
     if(A1 <= 0 && B2 >= 0){beta1[i] <- 0}
-    if(B1 >= 0 && A2 <= 0){beta1[i] <- B1/X1carre}
+    if(B1 >= 0 && A2 <= 0){beta1[i] <- B1/X1carre; B <- c(B, B1/X1carre)}
   }
-  return(beta1)
+  return(list(beta1 = beta1, A = A, B = B))
 }
