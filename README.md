@@ -3,7 +3,7 @@
 
 Installation of the package from github
 ```r
-devtools::install_github("vrunge/nnlm")
+devtools::install_github("vrunge/iclm")
 ```
 ## Data generation
 

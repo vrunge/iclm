@@ -1,10 +1,10 @@
-Package: nnlm
+Package: iclm
 Type: Package
-Title: non-negative linear model in small dimensions
+Title: inequality constrained linear model in small dimensions
 Version: 0.1.0
 Authors@R: c(person("Vincent", "Runge", email = "vincent.runge@univ-evry.fr", role = c("aut", "cre")))
 Maintainer: Vincent Runge <vincent.runge@univ-evry.fr>
-Description: A small package to evaluate the non-negative linear model in small dimensions. In particular, we want to compare the nonconstrained linear model with results given by non-negative constraints.
+Description: A small package to evaluate the inequality constrained linear model in small dimensions. In particular, we want to compare the nonconstrained linear model with results given by non-negative constraints.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
