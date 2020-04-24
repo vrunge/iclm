@@ -1,4 +1,4 @@
-# nnlm : Non-negative linear model
+# iclm : inequality constrained linear model
 
 
 Installation of the package from github
